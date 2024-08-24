@@ -40,6 +40,6 @@ class GlobalVariables {
     [2, [true, true]],
     [3, [true, false]],
   ]);
-  static backendUrl = 'https://conwaysinfinite.onrender.com/api/v1';
+  static backendUrl = 'http:20.244.37.180:443/api/v1';
 }
 export default GlobalVariables;
