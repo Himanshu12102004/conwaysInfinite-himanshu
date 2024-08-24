@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="icon" href="./assets/conways.png" type="image/x-icon" />
+    <title>Game of life</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <canvas></canvas>
+    <div class="obstructed">
+      <img src="./assets/conways.png" height="70" width="70" alt="Conway's Game of Life" />
+      <div class="template-head">Conway's Game of Life</div>
+
+      <div style="text-align: center; margin-top: 20px;">Browser window is too small <br> to display this website. Please open on pc</div></div>
+    <div class ="published">
+      <img src="./assets/conways.png" height="70" width="70" alt="Conway's Game of Life" />
+
+      <div class="success">Published Successfully</div>
+    </div>
+    <div class="help">
+      <div class="helpWrapper">
+        <img src="./assets/conways.png" height="70" width="70" alt="Conway's Game of Life" />
+      <div class="template-head">Conway's Game of Life</div>
+
+        <div class="help-content">
+
+          <h2>How to Use:</h2>
+          <ul style="font-size: 15px;">
+            <li><strong>Make a Cell Live:</strong> Tap on a cell to make it live.</li>
+            <li><strong>Kill a Cell:</strong> Tap on a live cell to turn it off.</li>
+            <li><strong>Change Speed:</strong> Use the controllers on the top right to adjust the simulation speed.</li>
+            <li><strong>Use a Pre-built Template:</strong> Click the button on the top left to select a pre-built template.</li>
+            <li><strong>Zoom In/Out:</strong> Use the mouse wheel to zoom in or out of the grid.</li>
+            <li><strong>Pan the View:</strong> Right-click and drag to move around the grid.</li>
+            <li><strong>Change Rules:</strong> Click the "See Rules" button to modify the rules for cell survival.</li>
+            <li><strong>Play-Pause-Reset:</strong>Use the controls at the bottom center of the screen to play pause or reset the game</li>
+          </ul>
+        </div>
+      </div>
+      <div class="closeHelp">Close</div>
+    </div>
+    
+    </div>
+    <div class="specs">
+    <div class="generation">0th generation</div>
+    <div class="liveCells">0 Live Cells</div>
+    <div class="zoom"></div>
+    <div class="fps"></div>
+  </div>
+    <div class="alive"></div>
+    <script type="module" src="./dist/script.js"></script>
+    <script type="module" src="./dist/frontendControl.js"></script>
+    <script type="module" src="./dist/signupin.js"></script>
+    <div class="controls cur_play">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        fill="#000000"
+        viewBox="0 0 256 256"
+        class="play hide"
+      >
+        <path
+          d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm48.24-94.78-64-40A8,8,0,0,0,100,88v80a8,8,0,0,0,12.24,6.78l64-40a8,8,0,0,0,0-13.56ZM116,153.57V102.43L156.91,128Z"
+        ></path>
+      </svg>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        fill="#000000"
+        viewBox="0 0 256 256"
+        class="pause"
+      >
+        <path
+          d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM112,96v64a8,8,0,0,1-16,0V96a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V96a8,8,0,0,1,16,0Z"
+        ></path>
+      </svg>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        fill="#000000"
+        viewBox="0 0 256 256"
+        class="reset"
+      >
+        <path
+          d="M240,56v48a8,8,0,0,1-8,8H184a8,8,0,0,1,0-16H211.4L184.81,71.64l-.25-.24a80,80,0,1,0-1.67,114.78,8,8,0,0,1,11,11.63A95.44,95.44,0,0,1,128,224h-1.32A96,96,0,1,1,195.75,60L224,85.8V56a8,8,0,1,1,16,0Z"
+        ></path>
+      </svg>
+    </div>
+    <div class="blur"></div>
+    <div class="loaderFullScreen">
+      <video class="loaderVideo" autoplay loop muted>
+        <source src="./assets/conways.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <div class="loadText">Loading Pattern...</div>
+    </div>
+  <div class="topRightOptions">
+    <button class="templates">Templates</button>
+    <button class="contributeBtn">Contribute</button>
+    <button class="helpBtn">Help</button>
+    <button class="rulesBtn">See rules</button>
+    <div class="rules">
+      <table style="border-collapse: collapse; width: 100%;">
+          <thead>
+              <tr>
+                  <th style="border: 1px solid white; padding: 8px; text-align: center; width: 70px;">Live Neighbour Cells</th>
+                  <th style="border: 1px solid white; padding: 8px; text-align: center; width: 70px;">Next Generation State</th>
+                  <th style="border: 1px solid white; padding: 8px; text-align: center; width: 70px;">Last Generation State</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td style="border: 1px solid white; padding: 8px; text-align: center;">1</td>
+                  <td style="border: 1px solid white; padding: 8px; text-align: center;"><input type="checkbox" id="checkbox1-1" /></td>
+                  <td style="border: 1px solid white; padding: 8px; text-align: center;"><input type="checkbox" id="checkbox1-2" /></td>
+              </tr>
+              <tr>
+                  <td style="border: 1px solid white; padding: 8px; text-align: center;">2</td>
+                  <td style="border: 1px solid white; padding: 8px; text-align: center;"><input type="checkbox" id="checkbox2-1" /></td>
+                  <td style="border: 1px solid white; padding: 8px; text-align: center;"><input type="checkbox" id="checkbox2-2" /></td>
+              </tr>
+              <tr>
+                  <td style="border: 1px solid white; padding: 8px; text-align: center;">3</td>
+                  <td style="border: 1px solid white; padding: 8px; text-align: center;"><input type="checkbox" id="checkbox3-1" /></td>
+                  <td style="border: 1px solid white; padding: 8px; text-align: center;"><input type="checkbox" id="checkbox3-2" /></td>
+              </tr>
+              <tr>
+                  <td style="border: 1px solid white; padding: 8px; text-align: center;">4</td>
+                  <td style="border: 1px solid white; padding: 8px; text-align: center;"><input type="checkbox" id="checkbox4-1" /></td>
+                  <td style="border: 1px solid white; padding: 8px; text-align: center;"><input type="checkbox" id="checkbox4-2" /></td>
+              </tr>
+              <tr>
+                  <td style="border: 1px solid white; padding: 8px; text-align: center;">5</td>
+                  <td style="border: 1px solid white; padding: 8px; text-align: center;"><input type="checkbox" id="checkbox5-1" /></td>
+                  <td style="border: 1px solid white; padding: 8px; text-align: center;"><input type="checkbox" id="checkbox5-2" /></td>
+              </tr>
+              <tr>
+                  <td style="border: 1px solid white; padding: 8px; text-align: center;">6</td>
+                  <td style="border: 1px solid white; padding: 8px; text-align: center;"><input type="checkbox" id="checkbox6-1" /></td>
+                  <td style="border: 1px solid white; padding: 8px; text-align: center;"><input type="checkbox" id="checkbox6-2" /></td>
+              </tr>
+              <tr>
+                  <td style="border: 1px solid white; padding: 8px; text-align: center;">7</td>
+                  <td style="border: 1px solid white; padding: 8px; text-align: center;"><input type="checkbox" id="checkbox7-1" /></td>
+                  <td style="border: 1px solid white; padding: 8px; text-align: center;"><input type="checkbox" id="checkbox7-2" /></td>
+              </tr>
+              <tr>
+                  <td style="border: 1px solid white; padding: 8px; text-align: center;">8</td>
+                  <td style="border: 1px solid white; padding: 8px; text-align: center;"><input type="checkbox" id="checkbox8-1" /></td>
+                  <td style="border: 1px solid white; padding: 8px; text-align: center;"><input type="checkbox" id="checkbox8-2" /></td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+  </div>
+    <div class="signupLoginForm">
+      <div class ="form">
+        <img src="./assets/conways.png" height="70" width="70" alt="" />
+        <div class="template-head">Conway's Game of Life</div>
+        <div class="template-head signHead" style="margin: 10px 0 20px 0px;">Sign Up</div>
+        <input class="username inp" placeholder="Username" type="text">
+        <div class="usernameErr err"></div>
+        <input class="password inp" type="password" placeholder="Password">
+        <div class="passwordErr err"></div>
+        <button class="signInUpBtn">Sign Up</button>
+        <div>
+          <span class="bottomLine">Aleready registered?</span> <span class="signUpInMode">SignIn</span></div>
+        </div>
+    </div>
+    </div>
+    <div class="loadingInSignUp">
+<div class="loading">
+  <video class="loaderVideo" autoplay loop muted>
+    <source src="./assets/conways.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+  <div class="loadText">Please Wait...</div>
+</div>
+    </div>
+    </div>
+    <div class="contributeDialogueBox">
+      <img src="./assets/conways.png" height="70" width="70" alt="" />
+      <div class="template-head">Conway's Game of Life</div>
+      <div class="template-head" style="margin-top: 20px; font-size: 17px;">Contribute pattern</div>
+      <div class="notLoggedIn"></div>
+      
+        <div class="signupFirstToContribute">
+          <img height="150"  src="./assets/makeYourAccount.png" alt="">
+          <div class="notRegistered">Oh! It seems you are not registered<br> with us, signup or login to contribute <br>patterns</div>
+          <div class="signupFirstBtnToContribute">Sign Up</div>
+        </div>
+    <div class="contributionForm">
+<div class="contributionMessage">
+  Are you sure to publish your current <br> pattern to our website ?
+</div>
+<input class="namePattern inp" placeholder="Name your pattern" type="text">
+<div class="nameErr err"></div>
+<textarea name="description" id="description" placeholder="Describe Your pattern briefly" ></textarea>
+<div class="descriptionErr err"></div>
+
+<div class="publishPattern">Contribute pattern</div>
+
+</div>
+<div class="closeContributeDialogueBox">Close</div>
+    </div>
+    <div class="frontend">
+      <div class="templatePage">
+        <div class="templatePageWrapper">
+          <img src="./assets/conways.png" height="70" width="70" alt="" />
+          <div class="template-head">Conway's Game of Life</div>
+          <div class="template-subhead">
+            Choose from our 100's of starter templates
+          </div>
+          <div class="tabAndSearch">
+            <div class="tab-selector">
+              <div class="allTemplates selected tab">All</div>
+              <div class="yourTemplates tab">Your Contributions</div>
+            </div>
+            <div class="search">
+              <input class="searchBox" placeholder="Search" type="text" />
+            </div>
+          </div>
+          <div class="content">
+            <div class="loader">
+              <video class="loaderVideo" autoplay loop muted>
+                <source src="./assets/conways.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div class="loadText">Loading Tempalates...</div>
+            </div>
+            <div class="nothingFound">
+              <img height="150"  src="./assets/nothingFound.png" alt="">
+              <div class="notFound" style="font-size: 20px;">Nothing matches to your search</div>
+            </div>
+            <div class="notContributed">
+              <div class="notFound" style="font-size: 20px;
+              margin-top: 30px;">It seems you haven't contributed any pattern yet. Your contributions will appear here</div>
+            </div>
+            <div class="signupFirst">
+              <img height="150"  src="./assets/makeYourAccount.png" alt="">
+              <div class="notRegistered">Oh! It seems you are not registered<br> with us, signup or login to view <br>your pattern contributions</div>
+              <div class="signupFirstBtn">Sign Up</div>
+            </div>
+            <div class="fetchedContent"></div>
+          </div>
+          <div class="close">Close</div>
+        </div>
+      </div>
+    </div>
+    <a
+      href="https://www.linkedin.com/in/himanshu-gupta-b24254257/"
+      target="_blank"
+    >
+      <div class="madeBy">Made with ❤️ by Himanshu</div>
+    </a>
+  </body>
+</html>
